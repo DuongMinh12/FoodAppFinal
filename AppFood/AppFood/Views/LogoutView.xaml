@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppFood.Views.LogoutView"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:helpers="clr-namespace:DeliveryApp.Helpers"
+             Visual="Material"
+             xmlns:vm="clr-namespace:AppFood.ViewModels"
+             BackgroundColor="black">
+    <ContentPage.BindingContext>
+        <vm:LogoutViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <ImageButton Source="{FontImage FontFamily=FontAwesome,
+                Glyph={x:Static helpers:IconFont.ArrowLeft},Size=30, Color=White}"
+                Grid.Row="0" HorizontalOptions="Start" Aspect="AspectFit"
+                VerticalOptions="Start" Margin="10,30"  Clicked="ImageButton_Clicked"/>
+
+
+            <Label Text="Weeee Pizza" FontSize="40"  
+                   FontFamily="CabinSketch" HorizontalOptions="Center" VerticalOptions="Start"
+                   TextColor="White"/>
+
+            <Label x:Name="LabelName" FontSize="Subtitle" Margin="20,0"  
+                   HorizontalOptions="Center" VerticalOptions="End" />
+
+            <pancake:PancakeView BackgroundColor="WhiteSmoke" 
+                                CornerRadius="60,60,0,0"
+                                Grid.Row="1">
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <StackLayout IsVisible="{Binding IsCartExists}">
+                        <Label Text="Giỏ hàng vẫn còn sản phẩm!" TextColor="Black" FontSize="16" />
+                        <Label Text="{Binding UserCartItemsCount, StringFormat='Giỏ hàng của bạn vẫn còn {0} sản phẩm'}"
+                              TextColor="Black" FontSize="16"/>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Bạn có chắc rằng muốn đăng xuất không?" TextColor="Black" FontSize="16" />
+                        <Image Source="meow2.gif" IsAnimationPlaying="True" />
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+
+                            <Button Text="Đăng xuất" HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                   BackgroundColor="#FFC1C1"
+                                   CornerRadius="20"
+                                   Command="{Binding LogoutCommand}" />
+
+                            <Button Text="Giỏ hàng" HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    CornerRadius="20" BackgroundColor="LightGreen"
+                                    Command="{Binding GotoCartCommand}" />
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </pancake:PancakeView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
